@@ -1,0 +1,10 @@
+{
+  "name": "game-simple-lottery",
+  "uuid": "a20692d0-0a9c-4697-8a8c-e620f642a578",
+  "creator": {
+    "version": "3.8.2"
+  },
+  "devDependencies": {
+    "@taoliujun/eslint-config": "^2.1.0"
+  }
+}
