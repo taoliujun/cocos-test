@@ -1,4 +1,15 @@
-import { _decorator, Component, instantiate, Prefab, Sprite, UITransform } from 'cc';
+import {
+    _decorator,
+    Component,
+    instantiate,
+    Node,
+    Prefab,
+    resources,
+    Sprite,
+    SpriteFrame,
+    UITransform,
+    Vec3,
+} from 'cc';
 import { getRandomColor } from './utils/color';
 
 const { ccclass, property } = _decorator;
@@ -7,6 +18,26 @@ const { ccclass, property } = _decorator;
 export class mainController extends Component {
     @property({ type: Prefab })
     private lotteryPrefab: Prefab = null;
+
+    // create a hortial scroll item
+    private generateScrollItem() {
+        const item = new Node('scrollItem');
+        item.setPosition(new Vec3(0, 0, 0));
+        item.addComponent(UITransform);
+        item.addComponent(Sprite);
+
+        const ui = item.getComponent(UITransform);
+        ui.width = 200;
+        ui.height = 200;
+
+        resources.load('1/spriteFrame', SpriteFrame, (err, frame) => {
+            const sprite = item.getComponent(Sprite);
+            sprite.sizeMode = Sprite.SizeMode.CUSTOM;
+            sprite.spriteFrame = frame;
+        });
+
+        return item;
+    }
 
     // make 9 boxes
     private makeBoxes() {
@@ -33,7 +64,10 @@ export class mainController extends Component {
     }
 
     start() {
-        this.makeBoxes();
+        this.node.addChild(this.generateScrollItem());
+        console.log('==item1', this.node.getChildByName('scrollItem'));
+        console.log('==node1', this.node.getChildByName('node1'));
+        // this.makeBoxes();
     }
 
     update(deltaTime: number) {}
