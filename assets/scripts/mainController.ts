@@ -64,7 +64,7 @@ export class mainController extends Component {
     }
 
     start() {
-        this.node.addChild(this.generateScrollItem());
+        // this.node.addChild(this.generateScrollItem());
         console.log('==item1', this.node.getChildByName('scrollItem'));
         console.log('==node1', this.node.getChildByName('node1'));
         // this.makeBoxes();
