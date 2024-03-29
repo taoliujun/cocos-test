@@ -294,10 +294,6 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "lotteryPrefab": {
-      "__uuid__": "9474cc5a-f08f-4edf-be3f-25c32163406e",
-      "__expectedType__": "cc.Prefab"
-    },
     "_id": "f28kDhBSBMFYuY3ObLVXXf"
   },
   {
@@ -354,7 +350,7 @@
       "a": 0
     },
     "_miterLimit": 10,
-    "_id": "ddFZhgbVFIopHZVq0FSGV6"
+    "_id": "3cQHmj75NDIJ8jRswPclXs"
   },
   {
     "__type__": "cc.Node",

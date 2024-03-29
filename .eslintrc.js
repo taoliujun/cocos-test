@@ -1,18 +1,20 @@
 module.exports = {
     extends: ['@taoliujun/eslint-config'],
     ignorePatterns: ['/*.js'],
-    // rules: {
-    //     'max-classes-per-file': ['off'],
-    //     // 函数最大行数
-    //     'max-lines-per-function': [
-    //         'error',
-    //         {
-    //             max: 200,
-    //             skipBlankLines: true,
-    //             skipComments: true,
-    //         },
-    //     ],
-    // },
+    rules: {
+        // 'max-classes-per-file': ['off'],
+        // // 函数最大行数
+        // 'max-lines-per-function': [
+        //     'error',
+        //     {
+        //         max: 200,
+        //         skipBlankLines: true,
+        //         skipComments: true,
+        //     },
+        // ],
+        'no-underscore-dangle': ['off'],
+        'no-console': ['off'],
+    },
     overrides: [
         {
             // 下列文件不用检查是否被引用

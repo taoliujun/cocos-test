@@ -5,6 +5,10 @@
     "version": "3.8.2"
   },
   "devDependencies": {
-    "@taoliujun/eslint-config": "^2.1.0"
+    "@taoliujun/eslint-config": "^2.1.0",
+    "@types/lodash-es": "^4.17.12"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
   }
 }
