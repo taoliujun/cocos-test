@@ -10,5 +10,6 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21"
-  }
+  },
+  "version": "3.8.2"
 }
