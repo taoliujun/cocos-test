@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import {
     _decorator,
     Component,
@@ -161,6 +160,47 @@ export class boxController extends Component {
         }
 
         // 生成新3列
+        const cNodes = this.generateNewScrollers();
+
+        // 指定部分特殊的商品
+        for (let i = 0; i < 3; i += 1) {
+            const cNode = cNodes[i];
+            const rewardNode = cNode.children[this.rewardResult[i].rewardIndex];
+
+            // 将本列前3项，换成上一轮中奖结果
+            const prevReward = prevRewardResult[i];
+            if (prevReward) {
+                for (let j = 0; j < 3; j += 1) {
+                    cNode.children[j].getChildByName('rewardName').getComponent(Label).string =
+                        prevScrollItems[i][prevReward.rewardIndex - 1 + j].rewardName;
+                }
+            }
+
+            // 替换中奖项
+            if (reward !== REWARD_EMPTY) {
+                // 特殊全屏奖品
+                if (reward === RewardEnum.GOODS_MOUTAI) {
+                    [
+                        this.rewardResult[i].rewardIndex - 1,
+                        this.rewardResult[i].rewardIndex,
+                        this.rewardResult[i].rewardIndex + 1,
+                    ].forEach((ri) => {
+                        cNode.children[ri].getChildByName('rewardName').getComponent(Label).string =
+                            REWARD_CONFIG[reward].name;
+                    });
+                } else {
+                    rewardNode.getChildByName('rewardName').getComponent(Label).string = REWARD_CONFIG[reward].name;
+                }
+            }
+
+            this.node.addChild(cNode);
+        }
+
+        this.startAnim();
+    }
+
+    // 生成新3列
+    private generateNewScrollers() {
         const cNodes: Node[] = [];
         const regenerate = () => {
             for (let i = 0; i < 3; i += 1) {
@@ -222,49 +262,19 @@ export class boxController extends Component {
             }
         };
         regenerate();
+        return cNodes;
+    }
 
-        // 指定部分特殊的商品
-        for (let i = 0; i < 3; i += 1) {
-            const cNode = cNodes[i];
-            const rewardNode = cNode.children[this.rewardResult[i].rewardIndex];
-
-            // 将本列前3项，换成上一轮中奖结果
-            const prevReward = prevRewardResult[i];
-            if (prevReward) {
-                for (let j = 0; j < 3; j += 1) {
-                    cNode.children[j].getChildByName('rewardName').getComponent(Label).string =
-                        prevScrollItems[i][prevReward.rewardIndex - 1 + j].rewardName;
-                }
-            }
-
-            // 替换中奖项
-            if (reward !== REWARD_EMPTY) {
-                // 特殊全屏奖品
-                if (reward === RewardEnum.GOODS_MOUTAI) {
-                    [
-                        this.rewardResult[i].rewardIndex - 1,
-                        this.rewardResult[i].rewardIndex,
-                        this.rewardResult[i].rewardIndex + 1,
-                    ].forEach((ri) => {
-                        cNode.children[ri].getChildByName('rewardName').getComponent(Label).string =
-                            REWARD_CONFIG[reward].name;
-                    });
-                } else {
-                    rewardNode.getChildByName('rewardName').getComponent(Label).string = REWARD_CONFIG[reward].name;
-                }
-            }
-
-            this.node.addChild(cNode);
-        }
-
+    // 中奖动画
+    private startAnim() {
         // 开始动画
         for (let i = 0; i < 3; i += 1) {
-            const cNode = cNodes[i];
+            const cNode = this.node.children[i];
             const rewardNode = cNode.children[this.rewardResult[i].rewardIndex];
 
             tween()
                 .target(cNode.getComponent(Widget))
-                .delay(i * 0.5)
+                .delay(i * 0.3)
                 .by(
                     3,
                     {
